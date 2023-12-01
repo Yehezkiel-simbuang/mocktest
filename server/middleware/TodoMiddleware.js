@@ -12,7 +12,7 @@ const getUndoneTodo = async (req, res, next) => {
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json(data);
   } catch (error) {
@@ -29,7 +29,7 @@ const getDoneTodo = async (req, res, next) => {
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json(data);
   } catch (error) {
@@ -42,11 +42,11 @@ const createTodo = async (req, res, next) => {
     const data = await prisma.todo.create({
       data: {
         name: req.body.name,
-        userId: req.user.id,
+        userId: +req.user.id,
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json({ message: "Success create data", data: data });
   } catch (error) {
@@ -66,7 +66,7 @@ const updateTodo = async (req, res, next) => {
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json({ message: "Success update data", data: data });
   } catch (error) {
@@ -86,7 +86,7 @@ const updateToDone = async (req, res, next) => {
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json({ message: "Job done", data: data });
   } catch (error) {
@@ -102,7 +102,7 @@ const deleteTodo = async (req, res, next) => {
       },
     });
     if (!data) {
-      next(errorHandler(500, "Something went wrong"));
+      return next(errorHandler(500, "Something went wrong"));
     }
     res.status(200).json({ message: "Delete success", data: data });
   } catch (error) {
